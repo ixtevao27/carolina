@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Carolina 💜</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #8e2de2);
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+}
+
+.container {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+h1 { font-size: 3em; }
+
+p { font-size: 1.3em; }
+
+button {
+  padding: 15px 25px;
+  font-size: 1.2em;
+  margin: 10px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+#inicio {
+  background: #a855f7;
+  color: white;
+}
+
+#sim {
+  background: #22c55e;
+  color: white;
+  display: none;
+}
+
+#nao {
+  background: #555;
+  color: white;
+  display: none;
+  position: absolute;
+}
+
+#resposta {
+  margin-top: 20px;
+  font-size: 2em;
+}
+
+#final {
+  display: none;
+  font-size: 4em;
+  font-weight: bold;
+  color: #ff4dff;
+  margin-top: 20px;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* corações */
+.heart {
+  position: absolute;
+  color: #ff4dff;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  from { transform: translateY(-10vh); }
+  to { transform: translateY(110vh); }
+}
+
+/* confetti */
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h1>🎉 Feliz Aniversário, Carolina 💜</h1>
+
+  <p>Tu és incrível…</p>
+
+  <p id="typing"></p>
+
+  <button id="inicio" onclick="mostrar()">Queres namorar comigo?</button>
+
+  <div>
+    <button id="sim" onclick="aceitar()">SIM 💜</button>
+    <button id="nao" onmouseover="fugir()">NÃO 😅</button>
+  </div>
+
+  <p id="resposta"></p>
+
+  <div id="final">💜 ELA DISSE SIM 💜</div>
+</div>
+
+<script>
+
+let texto = "Tenho uma pergunta muito importante… 😳";
+let i = 0;
+
+// primeiro mostra frase fixa e só depois escreve
+function mostrar() {
+  document.getElementById("inicio").style.display = "none";
+
+  document.getElementById("typing").innerHTML = "Tenho uma pergunta importante… 😳";
+
+  setTimeout(() => {
+    escrever();
+  }, 1000);
+
+  document.getElementById("sim").style.display = "inline-block";
+  document.getElementById("nao").style.display = "inline-block";
+
+  setTimeout(() => {
+    setInterval(fugirAuto, 400);
+  }, 2000);
+}
+
+// efeito typing depois
+function escrever() {
+  document.getElementById("typing").innerHTML = "";
+  if (i < texto.length) {
+    document.getElementById("typing").innerHTML += texto.charAt(i);
+    i++;
+    setTimeout(escrever, 60);
+  }
+}
+
+// fugir botão não
+function fugir() {
+  const btn = document.getElementById("nao");
+  btn.style.top = Math.random() * 80 + "%";
+  btn.style.left = Math.random() * 80 + "%";
+}
+
+function fugirAuto() {
+  fugir();
+}
+
+// aceitar
+function aceitar() {
+  document.getElementById("resposta").innerHTML = "Sabia 😍💜";
+
+  document.getElementById("final").style.display = "block";
+
+  confetti();
+}
+
+// corações
+function coracoes() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💜";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 5000);
+}
+setInterval(coracoes, 200);
+
+// confetti
+function confetti() {
+  for (let i = 0; i < 100; i++) {
+    const c = document.createElement("div");
+    c.classList.add("confetti");
+
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background = ["#ff0","#f0f","#0ff","#0f0","#ff4dff"][Math.floor(Math.random()*5)];
+    c.style.animationDuration = (Math.random() * 2 + 2) + "s";
+
+    document.body.appendChild(c);
+
+    setTimeout(() => c.remove(), 4000);
+  }
+}
+
+</script>
+
+</body>
+</html>

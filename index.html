@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Feliz Aniversário Carolina 💜</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #8e2de2);
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+}
+
+.container {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+h1 {
+  font-size: 3em;
+}
+
+p {
+  font-size: 1.4em;
+}
+
+button {
+  padding: 15px 25px;
+  font-size: 1.2em;
+  margin: 10px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#inicio {
+  background: #a855f7;
+  color: white;
+}
+
+#sim {
+  background: #22c55e;
+  color: white;
+  display: none;
+}
+
+#nao {
+  background: #555;
+  color: white;
+  display: none;
+  position: absolute;
+}
+
+#resposta {
+  margin-top: 20px;
+  font-size: 1.8em;
+}
+
+/* corações */
+.heart {
+  position: absolute;
+  color: #ff4dff;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  from { transform: translateY(-10vh); }
+  to { transform: translateY(110vh); }
+}
+
+/* confetti */
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: yellow;
+  animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* texto animado */
+#typing {
+  font-weight: bold;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h1>🎉 Feliz Aniversário, Carolina! 🎉</h1>
+
+  <p>Tu és muito especial 💜</p>
+  <p id="typing"></p>
+
+  <button id="inicio" onclick="mostrarPergunta()">Queres namorar comigo?</button>
+
+  <div>
+    <button id="sim" onclick="aceitar()">SIM 💜</button>
+    <button id="nao" onmouseover="fugir()">NÃO 😅</button>
+  </div>
+
+  <p id="resposta"></p>
+</div>
+
+<script>
+
+// efeito de texto a escrever
+const texto = "E eu tenho uma pergunta importante... 😳";
+let i = 0;
+
+function escrever() {
+  if (i < texto.length) {
+    document.getElementById("typing").innerHTML += texto.charAt(i);
+    i++;
+    setTimeout(escrever, 60);
+  }
+}
+escrever();
+
+// mostrar botões
+function mostrarPergunta() {
+  document.getElementById("sim").style.display = "inline-block";
+  document.getElementById("nao").style.display = "inline-block";
+  document.getElementById("inicio").style.display = "none";
+
+  setTimeout(() => {
+    iniciarFuga();
+  }, 2000);
+}
+
+// botão SIM
+function aceitar() {
+  document.getElementById("resposta").innerHTML = "Sabia 😍💜";
+
+  criarConfetti();
+}
+
+// botão NÃO foge
+function fugir() {
+  const btn = document.getElementById("nao");
+  btn.style.top = Math.random() * 80 + "%";
+  btn.style.left = Math.random() * 80 + "%";
+}
+
+// fuga automática
+function iniciarFuga() {
+  setInterval(() => {
+    const btn = document.getElementById("nao");
+    btn.style.top = Math.random() * 80 + "%";
+    btn.style.left = Math.random() * 80 + "%";
+  }, 400);
+}
+
+// corações
+function criarCoracao() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💜";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}
+
+setInterval(criarCoracao, 300);
+
+// confetti explosão
+function criarConfetti() {
+  for (let i = 0; i < 80; i++) {
+    const conf = document.createElement("div");
+    conf.classList.add("confetti");
+
+    conf.style.left = Math.random() * 100 + "vw";
+    conf.style.background = ["#ff0", "#f0f", "#0ff", "#0f0"][Math.floor(Math.random()*4)];
+    conf.style.animationDuration = (Math.random() * 2 + 2) + "s";
+
+    document.body.appendChild(conf);
+
+    setTimeout(() => {
+      conf.remove();
+    }, 4000);
+  }
+}
+
+</script>
+
+</body>
+</html>

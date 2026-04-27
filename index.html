@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Carolina 💜</title>
+
+<style>
+body {
+  background: #ffe6f0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  overflow: hidden;
+}
+
+.container {
+  margin-top: 80px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#sim {
+  display: none;
+  background: #28a745;
+  color: white;
+}
+
+#nao {
+  display: none;
+  background: #dc3545;
+  color: white;
+  position: absolute;
+}
+
+#final {
+  display: none;
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+.heart {
+  position: absolute;
+  top: -20px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: -10px;
+  animation: fall linear forwards;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h1>🎉 Feliz Aniversário, Carolina 💜</h1>
+
+  <p>Tu és incrível…</p>
+
+  <p id="typing"></p>
+
+  <button id="inicio" onclick="iniciar()">Começar 💌</button>
+
+  <div>
+    <button id="sim" onclick="aceitar()">SIM 💜</button>
+    <button id="nao" onmouseover="fugir()">NÃO 😅</button>
+  </div>
+
+  <p id="resposta"></p>
+  <div id="final">💜 ELA DISSE SIM 💜</div>
+</div>
+
+<script>
+
+let textos = [
+  "Tenho uma pergunta muito importante… 😳",
+  "Queres namorar comigo? 💜"
+];
+
+let i = 0;
+let j = 0;
+
+// iniciar sequência
+function iniciar() {
+  document.getElementById("inicio").style.display = "none";
+  escrever();
+}
+
+// escrever textos em sequência
+function escrever() {
+  if (i < textos.length) {
+    let textoAtual = textos[i];
+
+    if (j < textoAtual.length) {
+      document.getElementById("typing").innerHTML += textoAtual.charAt(j);
+      j++;
+      setTimeout(escrever, 60);
+    } else {
+      // terminou frase
+      i++;
+      j = 0;
+
+      document.getElementById("typing").innerHTML += "<br><br>";
+
+      setTimeout(escrever, 800);
+    }
+  } else {
+    // mostrar botões no fim
+    document.getElementById("sim").style.display = "inline-block";
+    document.getElementById("nao").style.display = "inline-block";
+  }
+}
+
+// botão fugir (corrigido para não sair do ecrã)
+function fugir() {
+  const btn = document.getElementById("nao");
+
+  btn.style.top = Math.random() * 80 + "vh";
+  btn.style.left = Math.random() * 80 + "vw";
+}
+
+// aceitar
+function aceitar() {
+  document.getElementById("resposta").innerHTML = "Sabia 😍💜";
+  document.getElementById("final").style.display = "block";
+  confetti();
+}
+
+// corações
+function coracoes() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💜";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 5000);
+}
+setInterval(coracoes, 300);
+
+// confetti
+function confetti() {
+  for (let i = 0; i < 80; i++) {
+    const c = document.createElement("div");
+    c.classList.add("confetti");
+
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background = ["#ff0","#f0f","#0ff","#0f0","#ff4dff"][Math.floor(Math.random()*5)];
+    c.style.animationDuration = (Math.random() * 2 + 2) + "s";
+
+    document.body.appendChild(c);
+
+    setTimeout(() => c.remove(), 4000);
+  }
+}
+
+</script>
+
+</body>
+</html>
